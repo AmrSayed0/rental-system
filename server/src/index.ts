@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 /* IMPORT ROUTES */
 import { authMiddleware } from "./middleware/authMiddleware";
 import tenantRoutes from "./routes/tenantRoutes";
+import managerRoutes from "./routes/managerRoutes";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(cors());
 
 /* ROUTES */
 app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
+app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 
 /* LISTEN */
 const PORT = process.env.PORT || 3002;
