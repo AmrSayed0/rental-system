@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { NAVBAR_HEIGHT } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useSearchParams } from "next/navigation";
@@ -9,6 +9,7 @@ import { setFilters } from "@/state";
 import FiltersBar from "./FiltersBar";
 import FiltersFull from "./FiltersFull";
 import Map from "./Map";
+import Listings from "./Listings";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
@@ -56,7 +57,9 @@ const SearchPage = () => {
           <FiltersFull />
         </div>
         <Map />
-        <div className="basis-4/12 overflow-y-auto">{/* <Listings /> */}</div>
+        <div className="basis-4/12 overflow-y-auto">
+          <Listings />
+        </div>
       </div>
     </div>
   );
