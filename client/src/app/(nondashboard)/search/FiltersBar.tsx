@@ -1,8 +1,3 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Filter, Grid, List, Search } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { debounce } from "lodash";
 import {
   FiltersState,
   setFilters,
@@ -10,8 +5,13 @@ import {
   toggleFiltersFullOpen,
 } from "@/state";
 import { useAppSelector } from "@/state/redux";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { debounce } from "lodash";
 import { cleanParams, cn, formatPriceValue } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Filter, Grid, List, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -72,6 +72,30 @@ const FiltersBar = () => {
     updateURL(newFilters);
   };
 
+  const handleLocationSearch = async () => {
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          searchInput
+        )}.json?access_token=${
+          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+        }&fuzzyMatch=true`
+      );
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        const [lng, lat] = data.features[0].center;
+        dispatch(
+          setFilters({
+            location: searchInput,
+            coordinates: [lng, lat],
+          })
+        );
+      }
+    } catch (err) {
+      console.error("Error search location:", err);
+    }
+  };
+
   return (
     <div className="flex justify-between items-center w-full py-5">
       {/* Filters */}
@@ -98,7 +122,7 @@ const FiltersBar = () => {
             className="w-40 rounded-l-xl rounded-r-none border-primary-400 border-r-0"
           />
           <Button
-            // onClick={handleLocationSearch}
+            onClick={handleLocationSearch}
             className={`rounded-r-xl rounded-l-none border-l-none border-primary-400 shadow-none 
               border hover:bg-primary-700 hover:text-primary-50`}
           >

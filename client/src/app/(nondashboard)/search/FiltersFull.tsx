@@ -63,6 +63,28 @@ const FiltersFull = () => {
     }));
   };
 
+  const handleLocationSearch = async () => {
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          localFilters.location
+        )}.json?access_token=${
+          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+        }&fuzzyMatch=true`
+      );
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        const [lng, lat] = data.features[0].center;
+        setLocalFilters((prev) => ({
+          ...prev,
+          coordinates: [lng, lat],
+        }));
+      }
+    } catch (err) {
+      console.error("Error search location:", err);
+    }
+  };
+
   if (!isFiltersFullOpen) return null;
 
   return (
@@ -84,7 +106,7 @@ const FiltersFull = () => {
               className="rounded-l-xl rounded-r-none border-r-0"
             />
             <Button
-              // onClick={handleLocationSearch}
+              onClick={handleLocationSearch}
               className="rounded-r-xl rounded-l-none border-l-none border-black shadow-none border hover:bg-primary-700 hover:text-primary-50"
             >
               <Search className="w-4 h-4" />
