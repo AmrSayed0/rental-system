@@ -31,8 +31,8 @@ app.use("/properties", propertyRoutes);
 app.use("/leases", leaseRoutes);
 app.use("/applications", applicationRoutes);
 
-/* LISTEN */
-const PORT = process.env.PORT || 3002;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+/* SERVER */
+const port = Number(process.env.PORT) || 3002;
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server running on port ${port}`);
 });
