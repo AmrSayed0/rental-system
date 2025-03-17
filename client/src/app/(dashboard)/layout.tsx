@@ -7,6 +7,7 @@ import { NAVBAR_HEIGHT } from "@/lib/constants";
 import React, { useEffect, useState } from "react";
 import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery();
@@ -33,7 +34,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [authUser, router, pathname]);
 
-  if (authLoading || isLoading) return <>Loading...</>;
+  if (authLoading || isLoading)
+    return (
+      <>
+        <Loading />
+      </>
+    );
   if (!authUser?.userRole) return null;
 
   return (

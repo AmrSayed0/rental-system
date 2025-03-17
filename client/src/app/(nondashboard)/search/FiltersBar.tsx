@@ -96,6 +96,12 @@ const FiltersBar = () => {
     }
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleLocationSearch();
+    }
+  };
+
   return (
     <div className="flex justify-between items-center w-full py-5">
       {/* Filters */}
@@ -118,6 +124,7 @@ const FiltersBar = () => {
           <Input
             placeholder="Search location"
             value={searchInput}
+            onKeyDown={handleKeyDown}
             onChange={(e) => setSearchInput(e.target.value)}
             className="w-40 rounded-l-xl rounded-r-none border-primary-400 border-r-0"
           />

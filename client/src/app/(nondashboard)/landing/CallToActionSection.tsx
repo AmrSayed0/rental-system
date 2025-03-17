@@ -42,7 +42,7 @@ const CallToActionSection = () => {
               </button>
               <Link
                 href="/signup"
-                className="inline-block text-white bg-secondary-500 rounded-lg px-6 py-3 font-semibold hover:bg-secondary-600"
+                className="inline-block text-white bg-secondary-600 rounded-lg px-6 py-3 font-semibold hover:bg-secondary-500"
                 scroll={false}
               >
                 Sign Up

@@ -48,8 +48,7 @@ const components = {
             </Heading>
           </Link>
           <p className="text-muted-foreground mt-2">
-            <span className="font-bold">Welcome!</span> Please sign in to
-            continue
+            <span className="font-bold">Welcome! Let&apos;s get started.</span>
           </p>
         </View>
       </>

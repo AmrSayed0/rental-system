@@ -4,6 +4,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useGetAuthUserQuery } from "@/state/api";
+import { useRouter } from "next/navigation";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -58,7 +60,7 @@ const FeaturesSection = () => {
                   ][index]
                 }
                 linkText={["Explore", "Search", "Discover"][index]}
-                linkHref={["/explore", "/search", "/discover"][index]}
+                linkHref={["/search", "/search", "/search"][index]}
               />
             </motion.div>
           ))}
@@ -80,27 +82,41 @@ const FeatureCard = ({
   description: string;
   linkText: string;
   linkHref: string;
-}) => (
-  <div className="text-center">
-    <div className="p-4 rounded-lg mb-4 flex items-center justify-center h-48">
-      <Image
-        src={imageSrc}
-        width={400}
-        height={400}
-        className="w-full h-full object-contain"
-        alt={title}
-      />
+}) => {
+  const { data: authUser } = useGetAuthUserQuery();
+  const router = useRouter();
+
+  // Redirect to sign in page if user is not authenticated
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!authUser) {
+      event.preventDefault();
+      router.push("/signin");
+    }
+  };
+
+  return (
+    <div className="text-center">
+      <div className="p-4 rounded-lg mb-4 flex items-center justify-center h-48">
+        <Image
+          src={imageSrc}
+          width={400}
+          height={400}
+          className="w-full h-full object-contain"
+          alt={title}
+        />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="mb-4">{description}</p>
+      <Link
+        href={linkHref}
+        onClick={handleLinkClick}
+        className="inline-block border border-gray-300 rounded px-4 py-2 hover:bg-gray-100"
+        scroll={false}
+      >
+        {linkText}
+      </Link>
     </div>
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="mb-4">{description}</p>
-    <Link
-      href={linkHref}
-      className="inline-block border border-gray-300 rounded px-4 py-2 hover:bg-gray-100"
-      scroll={false}
-    >
-      {linkText}
-    </Link>
-  </div>
-);
+  );
+};
 
 export default FeaturesSection;

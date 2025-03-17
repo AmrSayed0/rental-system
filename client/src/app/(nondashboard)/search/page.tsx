@@ -17,6 +17,7 @@ const SearchPage = () => {
   const isFiltersFullOpen = useAppSelector(
     (state) => state.global.isFiltersFullOpen
   );
+  const filters = useAppSelector((state) => state.global.filters);
 
   useEffect(() => {
     const initialFilters = Array.from(searchParams.entries()).reduce(
@@ -37,6 +38,11 @@ const SearchPage = () => {
     const cleanedFilters = cleanParams(initialFilters);
     dispatch(setFilters(cleanedFilters));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Update page title
+  useEffect(() => {
+    document.title = `Search Results for: ${filters.location}`;
+  }, [filters.location, searchParams]);
 
   return (
     <div
