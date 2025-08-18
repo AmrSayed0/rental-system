@@ -20,29 +20,29 @@ const CallToActionSection = () => {
         transition={{ duration: 0.5 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative max-w-4xl xl:max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 xl:px-16 py-12"
+        className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-12"
       >
-        <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <div className="mb-6 md:mb-0 md:mr-10">
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">
               Find Your Dream Rental Property
             </h2>
           </div>
           <div>
-            <p className="text-white mb-3">
+            <p className="text-white mb-6 max-w-md mx-auto md:mx-0">
               Discover a wide range of rental properties in your desired
               location.
             </p>
-            <div className="flex justify-center md:justify-start gap-4">
+            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="inline-block text-primary-700 bg-white rounded-lg px-6 py-3 font-semibold hover:bg-primary-500 hover:text-primary-50"
+                className="inline-block text-primary-700 bg-white rounded-lg px-6 py-3 font-semibold hover:bg-primary-500 hover:text-primary-50 transition-colors duration-200"
               >
                 Search
               </button>
               <Link
                 href="/signup"
-                className="inline-block text-white bg-secondary-600 rounded-lg px-6 py-3 font-semibold hover:bg-secondary-500"
+                className="inline-block text-white bg-secondary-600 rounded-lg px-6 py-3 font-semibold hover:bg-secondary-500 transition-colors duration-200"
                 scroll={false}
               >
                 Sign Up
