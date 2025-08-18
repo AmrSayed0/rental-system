@@ -30,6 +30,7 @@ const NewProperty = () => {
       beds: 1,
       baths: 1,
       squareFeet: 1000,
+      propertyType: PropertyTypeEnum.Apartment,
       address: "",
       city: "",
       state: "",
